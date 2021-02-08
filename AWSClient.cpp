@@ -1,7 +1,6 @@
 #include "mbed.h"
 #include "mbed_trace.h"
 #include "AWSClient.h"
-#include "nantis_error.h"
 
 extern "C"
 {
@@ -291,7 +290,6 @@ int AWSClient::connect(NetworkInterface *net,
     }
     if (ret != MBED_SUCCESS)
     {
-        MBED_WARNING1(MBED_ERROR_AWS_IOT_SOCKET_CONNECT, NULL, ret);
         tr_error("Socket connect error: %d", ret);
         return ret;
     }
@@ -310,7 +308,6 @@ int AWSClient::connect(NetworkInterface *net,
     mqttStatus = MQTT_Connect(&mqttContext, &connectInfo, NULL, NULL, &sessionPresent);
     if (mqttStatus != MQTTSuccess)
     {
-        MBED_WARNING1(MBED_ERROR_AWS_IOT_MQTT_CONNECT, NULL, ret);
         tr_error("MQTT connect error: %d", ret);
         return mqttStatus;
     }
