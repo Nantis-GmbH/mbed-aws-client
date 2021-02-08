@@ -1,0 +1,15 @@
+aws-iot-device-sdk-embedded-C/demos/*
+aws-iot-device-sdk-embedded-C/tools/*
+aws-iot-device-sdk-embedded-C/platform/posix/*
+aws-iot-device-sdk-embedded-C/integration-test/*
+aws-iot-device-sdk-embedded-C/libraries/3rdparty/CMock/*
+# TODO enable other SDK components
+aws-iot-device-sdk-embedded-C/libraries/aws/device-defender-for-aws-iot-embedded-sdk/test/*
+aws-iot-device-sdk-embedded-C/libraries/aws/device-shadow-for-aws-iot-embedded-sdk/test/*
+aws-iot-device-sdk-embedded-C/libraries/aws/jobs-for-aws-iot-embedded-sdk/test/*
+aws-iot-device-sdk-embedded-C/libraries/aws/ota-for-aws-iot-embedded-sdk/*
+aws-iot-device-sdk-embedded-C/libraries/standard/coreHTTP/*
+aws-iot-device-sdk-embedded-C/libraries/standard/coreJSON/test/*
+aws-iot-device-sdk-embedded-C/libraries/standard/coreMQTT/test/*
+aws-iot-device-sdk-embedded-C/libraries/standard/backoffAlgorithm/test/*
+aws-iot-device-sdk-embedded-C/libraries/standard/corePKCS11/*
