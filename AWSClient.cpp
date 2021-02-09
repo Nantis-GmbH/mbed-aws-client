@@ -343,6 +343,11 @@ MQTTContext_t AWSClient::getMQTTContext()
     return mqttContext;
 }
 
+string AWSClient::getThingName()
+{
+    return thingName;
+}
+
 int AWSClient::subscribe(const string topicFilter, const MQTTQoS qos)
 {
     // Currently only support single subscriptions

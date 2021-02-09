@@ -210,6 +210,13 @@ public:
     MQTTContext_t getMQTTContext();
 
     /**
+     * @brief Returns the thing name.
+     * 
+     * @return Thing name.
+     */
+    string getThingName();
+
+    /**
      * @brief Subscribes to a topic filter.
      * 
      * TODO char array variant would be more efficient in some cases
