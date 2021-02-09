@@ -305,7 +305,7 @@ int AWSClient::connect(NetworkInterface *net,
 
     MQTTStatus_t mqttStatus;
     bool sessionPresent;
-    mqttStatus = MQTT_Connect(&mqttContext, &connectInfo, NULL, NULL, &sessionPresent);
+    mqttStatus = MQTT_Connect(&mqttContext, &connectInfo, NULL, 0, &sessionPresent);
     if (mqttStatus != MQTTSuccess)
     {
         tr_error("MQTT connect error: %d", ret);
