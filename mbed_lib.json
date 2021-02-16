@@ -20,6 +20,14 @@
         "buffer-size": {
             "help": "MQTT buffer size",
             "value": 1024
+        },
+        "shadow-topic-max-size": {
+            "help": "Maximum length of the shadow topic",
+            "value": 256
+        },
+        "shadow-get-response-max-size": {
+            "help": "Maximum length of the shadow get response",
+            "value": 1024
         }
     }
 }

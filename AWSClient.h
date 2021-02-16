@@ -11,9 +11,6 @@ extern "C"
 // Undef trace group from AWS SDK logging
 #undef TRACE_GROUP
 
-#define SHADOW_TOPIC_MAX_LENGTH 256
-#define SHADOW_GET_RESPONSE_MAX_SIZE 256
-
 /**
  * @brief Network context declaration.
  * 
@@ -106,13 +103,7 @@ private:
      * Gets written by the getShadowDocument() function.
      * 
      */
-    char shadowGetResponse[SHADOW_GET_RESPONSE_MAX_SIZE];
-
-    /**
-     * @brief Length of the shadow get response.
-     * 
-     */
-    size_t shadowGetResponseLength;
+    char shadowGetResponse[MBED_CONF_AWS_CLIENT_SHADOW_GET_RESPONSE_MAX_SIZE];
 
 public:
     /**

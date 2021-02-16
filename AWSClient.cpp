@@ -95,9 +95,10 @@ void AWSClient::eventCallbackStatic(MQTTContext_t *pMqttContext,
             case ShadowMessageTypeGetAccepted:
                 tr_info("/get/accepted json payload: %.*s", pPublishInfo->payloadLength, (const char *)pPublishInfo->pPayload);
                 awsClient.shadowGetAccepted = true;
-                // Store the get response
-                strncpy(awsClient.shadowGetResponse, (const char *)pPublishInfo->pPayload, pPublishInfo->payloadLength);
-                awsClient.shadowGetResponseLength = pPublishInfo->payloadLength;
+                // Buffer should be large enough to contain the response.
+                MBED_ASSERT(pPublishInfo->payloadLength < sizeof(awsClient.shadowGetResponse));
+                // Safely store the get response, truncate if necessary.
+                snprintf(awsClient.shadowGetResponse, sizeof(awsClient.shadowGetResponse), "%.*s", pPublishInfo->payloadLength, (const char *)pPublishInfo->pPayload);
                 break;
 
             case ShadowMessageTypeGetRejected:
@@ -516,18 +517,15 @@ int AWSClient::publishShadowReportedValue(string key, int value)
 
 int AWSClient::getShadowDocument()
 {
-    static char getAcceptedTopicBuffer[SHADOW_TOPIC_MAX_LENGTH] = {0};
+    static char getAcceptedTopicBuffer[MBED_CONF_AWS_CLIENT_SHADOW_TOPIC_MAX_SIZE] = {0};
     uint16_t getAcceptedTopicLength = 0;
-    static char getRejectedTopicBuffer[SHADOW_TOPIC_MAX_LENGTH] = {0};
+    static char getRejectedTopicBuffer[MBED_CONF_AWS_CLIENT_SHADOW_TOPIC_MAX_SIZE] = {0};
     uint16_t getRejectedTopicLength = 0;
-    static char getTopicBuffer[SHADOW_TOPIC_MAX_LENGTH] = {0};
+    static char getTopicBuffer[MBED_CONF_AWS_CLIENT_SHADOW_TOPIC_MAX_SIZE] = {0};
     uint16_t getTopicLength = 0;
 
     // Reset get accepted flag
     shadowGetAccepted = false;
-
-    // Reset shadowGetResponseLength, which gets set on incoming "get/accepted"
-    shadowGetResponseLength = 0;
 
     // Construct get/accepted topic
     auto shadowStatus = Shadow_GetTopicString(ShadowTopicStringTypeGetAccepted,
@@ -619,11 +617,11 @@ unsubscribeAndReturn:
 
 int AWSClient::updateShadowDocument(string updateDocument)
 {
-    static char updateAcceptedTopicBuffer[SHADOW_TOPIC_MAX_LENGTH] = {0};
+    static char updateAcceptedTopicBuffer[MBED_CONF_AWS_CLIENT_SHADOW_TOPIC_MAX_SIZE] = {0};
     uint16_t updateAcceptedTopicLength = 0;
-    static char updateRejectedTopicBuffer[SHADOW_TOPIC_MAX_LENGTH] = {0};
+    static char updateRejectedTopicBuffer[MBED_CONF_AWS_CLIENT_SHADOW_TOPIC_MAX_SIZE] = {0};
     uint16_t updateRejectedTopicLength = 0;
-    static char updateTopicBuffer[SHADOW_TOPIC_MAX_LENGTH] = {0};
+    static char updateTopicBuffer[MBED_CONF_AWS_CLIENT_SHADOW_TOPIC_MAX_SIZE] = {0};
     uint16_t updateTopicLength = 0;
 
     // Reset update accepted flag
