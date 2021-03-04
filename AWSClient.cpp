@@ -515,7 +515,7 @@ int AWSClient::publishShadowReportedValue(string key, int value)
     return 0;
 }
 
-int AWSClient::getShadowDocument()
+int AWSClient::downloadShadowDocument()
 {
     static char getAcceptedTopicBuffer[MBED_CONF_AWS_CLIENT_SHADOW_TOPIC_MAX_SIZE] = {0};
     uint16_t getAcceptedTopicLength = 0;

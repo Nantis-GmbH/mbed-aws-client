@@ -100,7 +100,7 @@ private:
     /**
      * @brief Buffer for the shadow get response.
      * 
-     * Gets written by the getShadowDocument() function.
+     * Gets written by the downloadShadowDocument() function.
      * 
      */
     char shadowGetResponse[MBED_CONF_AWS_CLIENT_SHADOW_GET_RESPONSE_MAX_SIZE];
@@ -254,12 +254,12 @@ public:
      * 
      * @return MBED_SUCCESS on success. 
      */
-    int getShadowDocument();
+    int downloadShadowDocument();
 
     /**
      * @brief Extracts the desired value of the given key from the retrieved device shadow document.
      * 
-     * getShadowDocument() should be called before this.
+     * downloadShadowDocument() should be called before this.
      * 
      * Tip: use stoi() to convert the value to integer in case an integer is expected.
      * 
