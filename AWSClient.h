@@ -1,7 +1,8 @@
 #ifndef AWS_CLIENT_H
 #define AWS_CLIENT_H
 
-#include "mbed.h"
+#include "TLSSocket.h"
+#include "Callback.h"
 
 extern "C"
 {
@@ -72,7 +73,7 @@ private:
      * @brief Application callback for subscription events.
      * 
      */
-    Callback<void(string, string)> subCallback;
+    mbed::Callback<void(std::string, std::string)> subCallback;
 
     /**
      * @brief Static callback to provide to the SDK.
@@ -91,7 +92,7 @@ private:
      * 
      * TODO check memory safety of this (string vs char array)
      */
-    string thingName;
+    std::string thingName;
 
     bool shadowGetAccepted;
 
@@ -151,7 +152,7 @@ public:
      * @param creds Credentials containing the root CA.
      * @return MBED_SUCCESS on success.  
      */
-    int init(Callback<void(string, string)> subCallback,
+    int init(mbed::Callback<void(std::string, std::string)> subCallback,
              const TLSCredentials_t &creds);
 
     /**
@@ -172,8 +173,8 @@ public:
      */
     int connect(NetworkInterface *net,
                 const TLSCredentials_t &creds,
-                const string hostname,
-                const string clientID);
+                const std::string hostname,
+                const std::string clientID);
 
     /**
      * @brief Check if the MQTT client is connected.
@@ -205,7 +206,7 @@ public:
      * 
      * @return Thing name.
      */
-    string getThingName();
+    std::string getThingName();
 
     /**
      * @brief Subscribes to a topic filter.
@@ -216,7 +217,7 @@ public:
      * @param qos QoS.
      * @return MBED_SUCCESS on success. 
      */
-    int subscribe(const string topicFilter, const MQTTQoS qos = MQTTQoS0);
+    int subscribe(const std::string topicFilter, const MQTTQoS qos = MQTTQoS0);
 
     /**
      * @brief Unsubscribes from a topic filter.
@@ -224,7 +225,7 @@ public:
      * @param topicFilter Topic filter.
      * @return MBED_SUCCESS on success.  
      */
-    int unsubscribe(const string topicFilter);
+    int unsubscribe(const std::string topicFilter);
 
     /**
      * @brief Publishes to a topic.
@@ -234,7 +235,7 @@ public:
      * @param qos QoS.
      * @return MBED_SUCCESS on success.   
      */
-    int publish(const string topic, const string msg, const MQTTQoS qos = MQTTQoS0);
+    int publish(const std::string topic, const std::string msg, const MQTTQoS qos = MQTTQoS0);
 
     /**
      * @brief Processes all of the pending incoming messages.
@@ -267,7 +268,7 @@ public:
      * @param value Desired value extracted from the shadow.
      * @return MBED_SUCCESS on success. 
      */
-    int getShadowDesiredValue(string key, string &value);
+    int getShadowDesiredValue(std::string key, std::string &value);
 
     /**
      * @brief Publishes an update to the device shadow.
@@ -275,7 +276,7 @@ public:
      * @param updateDocument Update document to be published.
      * @return MBED_SUCCESS on success.
      */
-    int updateShadowDocument(string updateDocument);
+    int updateShadowDocument(std::string updateDocument);
 
     /**
      * @brief Publishes the reported value of the given key to the device shadow.
@@ -286,7 +287,7 @@ public:
      * @param value String to publish. Quotation marks will be added automatically.
      * @return MBED_SUCCESS on success. 
      */
-    int publishShadowReportedValue(string key, string value);
+    int publishShadowReportedValue(std::string key, std::string value);
 
     /**
      * @brief Publishes the reported value of the given key to the device shadow.
@@ -297,7 +298,7 @@ public:
      * @param value Integer value to publish.
      * @return MBED_SUCCESS on success. 
      */
-    int publishShadowReportedValue(string key, int value);
+    int publishShadowReportedValue(std::string key, int value);
 };
 
 #endif /* AWS_CLIENT_H */

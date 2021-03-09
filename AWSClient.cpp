@@ -1,6 +1,6 @@
-#include "mbed.h"
-#include "mbed_trace.h"
 #include "AWSClient.h"
+#include "mbed_trace.h"
+#include "mbed_error.h"
 
 extern "C"
 {
@@ -11,6 +11,10 @@ extern "C"
 // Undef trace group from AWS SDK logging
 #undef TRACE_GROUP
 #define TRACE_GROUP "AWSClient"
+
+using namespace std;
+using namespace mbed;
+using namespace rtos::Kernel;
 
 /**
  * @brief Network send port function.
