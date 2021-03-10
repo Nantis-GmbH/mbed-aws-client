@@ -1,3 +1,4 @@
 shadow/test/*
 coreJSON/test/*
 coreMQTT/test/*
+test/*
