@@ -5,7 +5,6 @@
 extern "C"
 {
 #include "shadow.h"
-#include "core_json.h"
 }
 
 // Undef trace group from AWS SDK logging
@@ -475,7 +474,12 @@ int AWSClient::getShadowDesiredValue(string key, string &value)
     auto ret = JSON_Search(shadowGetResponse, sizeof(shadowGetResponse),
                            key.c_str(), key.length(),
                            &val, &valLen);
-    if (ret != JSONSuccess)
+    if (ret == JSONNotFound)
+    {
+        tr_info("JSON key %s not found", key.c_str());
+        return ret;
+    }
+    else if (ret != JSONSuccess)
     {
         tr_error("JSON_Search error: %d", ret);
         return ret;

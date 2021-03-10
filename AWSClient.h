@@ -1,12 +1,13 @@
 #ifndef AWS_CLIENT_H
 #define AWS_CLIENT_H
 
-#include "TLSSocket.h"
+#include "netsocket/TLSSocket.h"
 #include "Callback.h"
 
 extern "C"
 {
 #include "core_mqtt.h"
+#include "core_json.h" // Expose return value enumeration
 }
 
 // Undef trace group from AWS SDK logging
