@@ -1,10 +1,5 @@
-# AWS IoT Client for Mbed OS
+# DEPRECATED
 
-This library consists of the port of the AWS IoT SDK v4 to Mbed OS. It also provides some wrapper functions to simplify the API.
+The development has moved to: https://github.com/ARMmbed/mbed-client-for-aws
 
-See `AWSClient.h` for API documentation.
-
-## TODO
-
-* CMake integration
-* Other SDK components (Defender, Jobs etc.)
+For our fork check out: https://github.com/boraozgen/mbed-aws-client
